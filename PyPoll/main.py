@@ -12,9 +12,12 @@ tercero = 0
 cuarto = 0
 candidates = []
 numbervotes = []
-percentagev = []
-
 totalvotes = 0
+aux = candidates
+
+aux = dict()
+list_keys= aux.keys
+
 #Open and sort cvs
 election_data = os.path.join("Resources","Homework 3_PyPoll_Resources_election_data.csv")
 with open(election_data) as csvfile:
@@ -23,7 +26,8 @@ with open(election_data) as csvfile:
 
 #The total number of votes cast
     for x in csvreader:
-        totalvotes += 1 
+        totalvotes = totalvotes + 1
+        aux = (x[2])
 
 #The total number of votes each candidate won
         if x[2] not in candidates:
@@ -33,15 +37,16 @@ with open(election_data) as csvfile:
         else:
             index = candidates.index(x[2])
             numbervotes[index] += 1
+
     
 # Dictionary
 from collections import Counter
 def winner(input):
-    votes = counter(input)
+    numbervotes = counter(input)
     dict = {}
-    for value in votes.value():
+    for value in numbervotes.value():
         dict[value] = []
-    for (key, value) in votes.items():
+    for (key, value) in numbervotes.items():
         dict[value].append(key)
 
 #The percentage of votes each candidate won
@@ -75,6 +80,8 @@ print("--------------------------")
 for i in range(len(candidates)):
     print(f"{candidates[i]}: {str(numbervotes[i])}")
     print(f"{0:.3f}".format(por_primero))
+    
+
 print("--------------------------")
 print(f"Winner: {winner_candidate}")
 print("--------------------------")
